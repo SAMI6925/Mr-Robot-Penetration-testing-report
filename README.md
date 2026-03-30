@@ -1,8 +1,7 @@
 # Mr-Robot-Penetration-testing-report
 
-Overview
+# Overview
 A penetration testing report on MR ROBOT VM CFT, demonstrating credential attack, web exploitation (WordPress), reverse shell and privilege escalation technique.
-This repository contains a full penetration testing report of the Mr. Robot VM.
 
 # Skills Demonstrated
 - Network Scanning (Nmap) 
