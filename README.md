@@ -12,6 +12,7 @@ Both the machine were configured to same NAT Network.
 ### Host discovery 
 Used arp-scan to find the ip address of the target machine. 
 Command used "sudo arp-scan -l"
+![arp scan](./image/arp%20scan.png)
 ### Service and OS detection
 Used command ```namp -sV -O 192.168.1.8``` to find the running services and underlying operating system.
 ### Bruteforcing Directories
