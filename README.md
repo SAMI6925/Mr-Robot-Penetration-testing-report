@@ -83,6 +83,8 @@ After getting the hash for the password.raw-md5 by ```cat /home/robot/password.r
 Used ```python -c 'import pty; pty.spawn("/bin/bash")'``` to spawn a pseudo-terminal (PTY). This allowed me to improve the terminal and interact with system's password prompt.
 This time I can access as robot by entering the password cracked from the md5 hash and finally can access ```key-2-of-3.txt```
 
+![second key](./image/2nd%20key.png)
+
 ## privilege escalation to find SUID Binaries
 For escalating previledge to the root user I began by searching the file system for binaries with the SUID (Set User ID) bit enabled.
 Used command ```find / -perm /4000 -type f 2>/tmp/2``` to locate all files where the SUID bit is set (-perm /4000)
