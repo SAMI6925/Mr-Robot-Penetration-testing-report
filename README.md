@@ -19,6 +19,7 @@ Used command ```namp -sV -O 192.168.1.8``` to find the running services and unde
 
 ### Bruteforcing Directories
 Used command ```sudo dirb http://192.168.1.8``` to find the hidden files and directories within the web server. 
+![dirb scan](./image/dirb%20scan.png)
 
 ## Web Enumeration
 After the dirb scan I found a file named ```http://192.168.1.8/robots.txt``` and then I manually inspected the file.
