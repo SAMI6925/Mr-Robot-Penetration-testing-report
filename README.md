@@ -12,13 +12,16 @@ Both the machine were configured to same NAT Network.
 ### Host discovery 
 Used arp-scan to find the ip address of the target machine. 
 Command used ```sudo arp-scan -l```
+
 ![arp scan](./image/arp%20scan.png)
 ### Service and OS detection
 Used command ```namp -sV -O 192.168.1.8``` to find the running services and underlying operating system.
+
 ![nmap scan](./image/nmap%20scan%20service%20and%20OS%20detection.png)
 
 ### Bruteforcing Directories
-Used command ```sudo dirb http://192.168.1.8``` to find the hidden files and directories within the web server. 
+Used command ```sudo dirb http://192.168.1.8``` to find the hidden files and directories within the web server.
+
 ![dirb scan](./image/dirb%20scan.png)
 
 ## Web Enumeration
@@ -26,10 +29,13 @@ After the dirb scan I found a file named ```http://192.168.1.8/robots.txt``` and
 ### Key findings 
 ```fsocity.dic``` 
 ```key-1-of-3.txt``` 
+
 ![first key](./image/first%20key.png)
 
 ### Wordpress login page discovery
 dirb scan also flagged a wp login page ```http://192.168.1.8/wp-login```. That got me into a target login page and also wordlist fsocity.dic to use against it. 
+
+![login page](./image/wp%20login.png)
 
 ## User Enumeration: Cracking the login id
 Used burpsuit intruder tool to determine the user name from the wordlist 'fsocity.dic'
