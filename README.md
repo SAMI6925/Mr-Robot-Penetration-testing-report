@@ -50,6 +50,7 @@ In order to get the password for the user "Elliot" I used hydra to bruteforce at
 To make the attack faster and more efficient I used command ```sort /home/kali/mrrobot/fsocity.dic | uniq > ufsocity.txt``` 
 ### The Attack (hydra)
 Used command ``` sudo hydra -vv -l Elliot -P  ufsocity.txt 192.168.1.8 http-post-form '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log+In:F=is Incorrect' ``` to crack the password successfully.
+
 ![Hydra crack](./image/hydra%20password%20crack.png)
 
 ## Reverse Shell
@@ -63,6 +64,8 @@ After successfully logged into the website then I navigated to Appearance > Edit
 
 ### Netcat listener
  ```nc -lvp 443 ``` Successfully captured reversed shell as deamon@linux user.
+
+![reverse shell](./image/Reverse%20shell%20access.png)
 
 ## Post Exploitation 
 After gaining access as deamon@linux user I nevigated to home directory and found a folder named robot. But still can't access the second key.
