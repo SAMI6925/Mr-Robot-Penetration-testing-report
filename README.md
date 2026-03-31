@@ -105,3 +105,5 @@ With full system control I navigated to the root directory
        ls
        cat key-3-of-3.txt```
 and found the final key.
+
+![final key](/image/3rd%20key.png)
