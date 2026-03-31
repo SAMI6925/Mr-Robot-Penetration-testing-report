@@ -1,24 +1,8 @@
-# MR Robot Penetration testing report
+# Mr Robot Penetration testing report
 
 # Overview
 A penetration testing report on MR ROBOT VM CFT, demonstrating credential attack, web exploitation (WordPress), reverse shell and privilege escalation technique.
 
-# Skills Demonstrated
-- Network Scanning (Nmap) 
-- Directory Enumeration
-- Web Exploitation
-- Password Cracking
-- Privilege Escalation
-
-# Tools Used
-- Nmap
-- Burp Suite
-- Hydra
-
-# Outcome
-Successfully gained root access and captured all 3 hidden flags.
-
-# Technical walkthrough
 ## Lab environment
 Attacker machine (Kali Linux) ip - 192.168.1.5
 Target machine (Mr Robot VM)  ip - 192.168.1.8
@@ -53,4 +37,6 @@ In order to get the password for the user "Elliot" I used hydra to bruteforce at
 To make the attack faster and more efficient I used command "sort /home/kali/mrrobot/fsocity.dic | uniq > ufsocity.txt 
 ### The Attack (hydra)
 Used command ``` sudo hydra -vv -l Elliot -P  ufsocity.txt 192.168.1.8 http-post-form '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log+In:F=is Incorrect' ``` to crack the password successfully.
+
+
 
