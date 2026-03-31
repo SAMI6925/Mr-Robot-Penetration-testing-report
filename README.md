@@ -96,6 +96,8 @@ Used command ```find / -perm /4000 -type f 2>/tmp/2``` to locate all files where
 ## Exploiting Nmap SUID
 After identifying the ```/usr/local/bin/nmap``` I lunched nmap interactive mode by using command ```nmap --interactive```
 
+![nmap interective](/image/nmap%20interactive.png)
+
 ## Final Key 
 Inside the nmap promt I used shell escape command ```nmap> !sh``` and ran ```whoami``` to confirm that privilege have been escalated to root user.
 With full system control I navigated to the root directory 
