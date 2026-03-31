@@ -91,6 +91,8 @@ Used command ```find / -perm /4000 -type f 2>/tmp/2``` to locate all files where
 ### Key findings 
 ```/usr/local/bin/nmap```
 
+![SUID](./image/Finding%20SUID.png)
+
 ## Exploiting Nmap SUID
 After identifying the ```/usr/local/bin/nmap``` I lunched nmap interactive mode by using command ```nmap --interactive```
 
