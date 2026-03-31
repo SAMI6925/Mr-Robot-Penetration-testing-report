@@ -26,7 +26,7 @@ After the dirb scan I found a file named ```http://192.168.1.8/robots.txt``` and
 ### Key findings 
 ```fsocity.dic``` 
 ```key-1-of-3.txt``` 
-![first key](./image/dirb%20scan.png)
+![first key](./image/first%20key.png)
 
 ### Wordpress login page discovery
 dirb scan also flagged a wp login page ```http://192.168.1.8/wp-login```. That got me into a target login page and also wordlist fsocity.dic to use against it. 
