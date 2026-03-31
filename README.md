@@ -1,31 +1,27 @@
-Mr. Robot Penetration Testing Report
+# Mr. Robot Penetration Testing Report
 
-Overview
+# Overview
 
-This report details the end-to-end penetration test of the Mr. Robot VM, covering network reconnaissance, web exploitation (WordPress), credential attacks, and initial access.
+A penetration testing report on MR ROBOT VM CFT, demonstrating credential attack, web exploitation (WordPress), reverse shell and privilege escalation technique.
 
-1. Lab Environment
+## Lab Environment
 
-To maintain an isolated environment, both machines were configured on a private NAT Network.
+Attacker machine (Kali Linux) ip - 192.168.1.5
+Target machine (Mr Robot VM)  ip - 192.168.1.8
 
-Attacker (Kali Linux): 192.168.1.5
+Both the machine were configured to same NAT Network.
 
-Target (Mr. Robot VM): 192.168.1.8
+## Reconnaissance
 
-2. Reconnaissance & Host Discovery
+### Host discovery 
 
-Initial Network Scan
+Used arp-scan to find the ip address of the target machine. 
 
-I started by using arp-scan to confirm the target's presence on the local network.
+Command used "sudo arp-scan -l"
 
-sudo arp-scan -l
+### Service and OS detection
 
-
-Service & OS Detection
-
-After identifying the IP, I performed an aggressive Nmap scan to map the attack surface and fingerprint the operating system.
-
-sudo nmap -sV -O 192.168.1.8
+Used command ```namp -sV -O 192.168.1.8``` to find the running services and underlying operating system.
 
 
 Scan Results:
@@ -37,58 +33,19 @@ PORT    STATE  SERVICE  VERSION
 Device type: general purpose
 Running: Linux 3.X | 4.X
 
+### Bruteforcing Directories
 
-Directory Brute-forcing
-
-To uncover hidden web directories, I utilized dirb.
-
-sudo dirb [http://192.168.1.8](http://192.168.1.8)
+Used command ```sudo dirb http://192.168.1.8``` to find the hidden files and directories within the web server. 
 
 
-3. Web Enumeration
+## Web Enumeration
 
-The Breakthrough: Finding robots.txt
+After the dirb scan I found a file named ```http://192.168.1.8/robots.txt``` and then I manually inspected the file.
 
-The directory scan flagged a sensitive file: http://192.168.1.8/robots.txt. Manually inspecting this file revealed the first major clues.
+### Key findings 
 
-Key Findings:
-
-fsocity.dic: A massive custom dictionary file (wordlist).
-
-key-1-of-3.txt: The first of three hidden flags!
-
-WordPress Discovery
-
-The scan also identified a WordPress login portal at http://192.168.1.8/wp-login. This confirmed the primary attack vector.
-
-4. User Enumeration
-
-Cracking the Identity with Burp Suite
-
-I used Burp Suite Intruder to test the fsocity.dic wordlist against the login form. By analyzing the server's error messages, I was able to distinguish between valid and invalid users.
-
-Invalid User: Triggered a generic "Invalid" error.
-
-Valid User ("Elliot"): Triggered a specific message: "The password you entered for the username Elliot is incorrect."
-
-5. Password Attack
-
-Wordlist Optimization
-
-To ensure the brute-force attack was efficient, I cleaned the original dictionary by removing over 800,000 duplicate entries.
-
-sort /home/kali/mrrobot/fsocity.dic | uniq > ufsocity.txt
-
-
-The Attack (Hydra)
-
-With the username Elliot and sorted wordlist ufsocity.txt I launched Hydra to crack the password.
-
-sudo hydra -vv -l Elliot -P ufsocity.txt 192.168.1.8 http-post-form '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log+In:F=is Incorrect'
-
-
-The Result:
-Hydra successfully recovered the password, granting full administrative access to the WordPress dashboard.
+"fsocity.dic" A massive custom dictionary file (wordlist).
+"key-1-of-3.txt" The first flag
  
 
 
