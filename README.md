@@ -74,6 +74,8 @@ After gaining access as deamon@linux user I nevigated to home directory and foun
 ```key-2-of-3.txt```
 ```password.raw-md5```
 
+![md5 hash](./image/Finding%20md5%20hash.png)
+
 ## Cracking the password.raw-md5 
 After getting the hash for the password.raw-md5 by ```cat /home/robot/password.raw-md5``` then used john the ripper to crack the password by using command ```john --format=raw-MD5 --wordlist=/usr/share/wordlists/rockyou.txt hash.txt```
 
